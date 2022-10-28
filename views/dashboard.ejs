@@ -1,0 +1,17 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='/stylesheets/main.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='/javascript/logout.js'></script>
+    <script src='/javascript/getdashboardcontent.js'></script>
+    <title>Document</title>
+</head>
+<body id="" onbeforeunload="document.body.style.opacity='0'" onload="document.body.style.opacity='1'">
+    <header class="header"><button id="eleve-btn" >Espace élève</button>
+    <button class="logout"onclick="logout();">Se déconnecter</button></header>
+    <main>
+        <article> <%- include('./schedule/index.ejs') %></article>
+    </main>
+</body>
+</html>

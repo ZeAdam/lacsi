@@ -1,0 +1,36 @@
+
+body {
+    min-height: 100vh;
+    flex-direction: column;
+    display: flex;
+    opacity: 0;
+
+}
+#wrap {
+    background: url("/images/bgcsi.jpg") no-repeat fixed;
+    background-size: cover;
+    min-height: 100vh;
+    flex-direction: column;
+    display: flex;
+}
+main * {
+    margin: 7px;
+}
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;}
+main {
+    background-color: var(--bg);
+    width: 60vw;
+    height: 100vh;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+
+}
+a, strong {
+  margin: 0px;
+  text-decoration: none;
+}

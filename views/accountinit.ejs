@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; child-src 'none'; script-src 'nonce-<%= nonce %>' 'unsafe-inline'; base-uri 'self'" />
+    <meta name="description" content='Le site laCSI utilise les identifiants Ma classe en Auvergne-Rhône-Alpes pour se connecter à Pronote. Cette page vous permet de réinitialiser votre mot de passe Ma classe en AuRA'>
+    <link rel='stylesheet' href='/stylesheets/main.css' />
+    <link rel='stylesheet' href='/stylesheets/accountinit.css' />
+    <title>Initialiser son mot de passe Ma classe en AuRA</title>
+</head>
+<body id="body">
+    <div id="wrap">
+    <main>
+        <h1>(Ré)génerer son mot de passe "Ma classe en Auvergne-Rhône-Alpes"</h1>
+        <p>Le site laCSI utilise les identifiants Ma classe en Auvergne-Rhône-Alpes pour se connecter à Pronote. Ces identifiants, que vous pourrez aussi utiliser en sélectionnant <a href="https://cas.ent.auvergnerhonealpes.fr/login?selection=LYON-ATS_parent_eleve&service=https%3A%2F%2Fcsilyon.ent.auvergnerhonealpes.fr%2Fsg.do%3FPROC%3DIDENTIFICATION_FRONT&submit=Valider">"Elève ou parent sans Educonnect"</a>, ne sont pas ceux fournis par l'école.</p>
+        <p>L'identifiant Ma classe en AuRA est sous la forme <strong>nom.prénom</strong>. Si vous avez correcement inséré votre courriel lors de l'inscription à l'ENT, vous recevrez un courriel vous permettant de réinitialiser votre mot de passe, que vous pourrez ensuite utiliser sur laCSI.</p>
+
+        <input type="text" id="login" placeholder="Sous la forme nom.prénom">
+        <button id="btn-init">Initialiser le mot de passe</button>
+        <div id="popup" class="popup" hidden></div>
+    </div>
+    </main>
+<script src='/javascript/loadunload.js' nonce="<%= nonce %>"></script>
+<script src='/javascript/msgaccountinit.js' nonce="<%= nonce %>"></script>
+
+</body>
+</html>
