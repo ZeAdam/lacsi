@@ -25,6 +25,7 @@ function loadTimetable(from,to) { // called by fullCalendar when new view is gen
     xhr.open('POST', `/api/content`, true);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.onload = function(e) {
+      console.log(xhr.response);
         const timetable =  JSON.parse(xhr.response).data.timetable.map((entry) => {
                 return {
                   start: entry.from,

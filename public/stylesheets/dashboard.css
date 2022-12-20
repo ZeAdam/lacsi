@@ -1,0 +1,12 @@
+body {
+    background: #333;
+    color: #eee
+}
+.fc-timegrid-event-harness, .fc-timegrid-event-harness-inset {
+    left: 0% !important;
+}
+.fc-event-main div {
+    color: #323;
+    backdrop-filter: brightness(150%);
+    font-weight: bolder
+}

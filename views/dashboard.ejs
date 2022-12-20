@@ -1,67 +1,36 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-   <link rel='stylesheet' href='/stylesheets/main.css' />
+    <link rel='stylesheet' href='/stylesheets/main.css' />
+    <link rel='stylesheet' href='/stylesheets/dashboard.css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src='/javascript/logout.js'></script>
+    <script src='/javascript/schedule/main.js'></script>
+    <script src='/javascript/getdashboardcontent.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.0/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.0.0-beta.1/locales-all.min.js"></script>
+
     <title>Document</title>
 </head>
 <body id="" onbeforeunload="document.body.style.opacity='0'" onload="document.body.style.opacity='1'">
-    <header class="header"><button id="eleve-btn" >Espace élève</button>
-    <button class="logout"onclick="logout();">Se déconnecter</button></header>
+  <header class="header">
+    <div class="heyy">Salut! 👋</div>
+    <div class="nav">
+    <button id="eleve-btn" >Espace élève</button>
+    <button class="logout"onclick="logout();">Se déconnecter</button>
+    </div>
+  </header>
 
-    <script>
-
-        document.addEventListener('DOMContentLoaded', function() {
-          let calendarEl = document.getElementById('calendar');
-          calendar = new FullCalendar.Calendar(calendarEl, {
-            locale: 'fr',
-            initialView: 'timeGridWeek',
-            allDaySlot: false,
-            viewDidMount: function(view) {
-              //loadTimetable(new Date(calendar.view.activeStart).toLocaleDateString('en-CA'), new Date(calendar.view.activeEnd).toLocaleDateString('en-CA'));
-              loadTimetable("2022-09-02", "2023-07-14");
-            },
-            slotMinTime: "08:00:00",
-            slotMaxTime: "18:00:00",
-            slotDuration: "01:00:00",
-            slotLabelInterval: "01:00:00",
-            height: "80vh",
-            eventBorderColor: "rgba(0,0,0,0)",
-            expandRows: true,
-            nowIndicator: true,
-            weekends: false,
-            /*events: function(info, successCallback, failureCallback) {
-              const xhr = new window.XMLHttpRequest();
-              const body = {
-                  token: getCookie("token"), for: ["timetable",Date(info.activeStart).toLocaleDateString('en-CA'), new Date(info.activeEnd).toLocaleDateString('en-CA')]}
-              xhr.open('POST', `/api/content`, true);
-              xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-              xhr.onload = function(e) {
-                  const timetable =  JSON.parse(xhr.response).data.timetable.map((entry) => {
-                          return {
-                            start: entry.from,
-                            end: entry.to,
-                            title: `${entry.subject}${entry.teacher!=null ? " - " + entry.teacher:""}`,
-                            backgroundColor: entry.color,
-                          };
-                        });
-                  for (let i = 0; i < timetable.length; i++) {
-                    calendar.addEvent(timetable[i])
-                  }
-              }
-              xhr.send(JSON.stringify(body));
-            }*/
-          })
-          calendar.setOption('locale', 'fr');
-          view = calendar.view;
-          calendar.render();
-        });
-      </script>
     <div id="calendar"></div>
-    <style>.fc-timegrid-event-harness, .fc-timegrid-event-harness-inset {left: 0% !important;} .fc-event-main div { color: #323; backdrop-filter: brightness(150%); font-weight: bolder}</style>
-    <script src='/javascript/getdashboardcontent.js'></script>
+    <div id="grades">
+      <div class="subject">
+        <div class="subject-pres" style="display: flex;">
+        <div class="subject-name">LOREM IPSUM</div>
+        <div class="subject-avg">19.58</div>
+      </div>
+    </div>
+    </div>
+    </div>
   </body>
 </html>
