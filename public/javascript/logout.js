@@ -30,3 +30,5 @@ function logout() {
     window.location.href = "/"
     return true;
 }
+
+const graphql = "http://127.0.0.1:21727/graphql";

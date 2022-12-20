@@ -43,6 +43,12 @@ function authenticate() {
     xhr.send(JSON.stringify(body));
     return true;
 }
-if (connect) {
-connect.addEventListener('click', authenticate)
-};
+connectcsi.addEventListener('click', authenticate)
+
+connect.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      // Cancel the default action, if needed
+      event.preventDefault();
+    if (username.value.length != 0 || password.value.length != 0) {authenticate()}
+    }
+  });
