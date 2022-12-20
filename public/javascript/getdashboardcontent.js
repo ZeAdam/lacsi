@@ -18,26 +18,11 @@ function getdashboardcontent() { // for fetching name, class
 }
 getdashboardcontent();
 
-function loadTimetable(from,to) { // called by fullCalendar when new view is generated
+function getmarks() { //we'll temporarily work with the first trimester, TODO: display current trimester's marks
     const xhr = new window.XMLHttpRequest();
-    const body = {
-        token: getCookie("token"), for: ["timetable", from, to]}
-    xhr.open('POST', `/api/content`, true);
+    const body = {token: getCookie("token"), for:["marks", "Trimestre 1"]}
+    xhr.open('POST', `/api/marks`, true);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    xhr.onload = function(e) {
-      console.log(xhr.response);
-        const timetable =  JSON.parse(xhr.response).data.timetable.map((entry) => {
-                return {
-                  start: entry.from,
-                  end: entry.to,
-                  title: `${entry.subject}${entry.teacher!=null ? " - " + entry.teacher:""}`,
-                  backgroundColor: entry.color,
-                };
-              });
-        for (let i = 0; i < timetable.length; i++) {
-          calendar.addEvent(timetable[i])
-        }
-    }
-    xhr.send(JSON.stringify(body));
+    xhr.onload = function(e) { 
+      console.log(JSON.parse(xhr.response));
 }
-// 604800000

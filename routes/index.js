@@ -93,7 +93,8 @@ router.post('/api/auth', function(req, res, next) {
       let token = req.body.token;
       let query
       if (req.body.for[0]=="dashboard") {query="{user { name studentClass { name }}}";}
-      else if (req.body.for[0]=="timetable" && req.body.for[1] && req.body.for[2]) {query=`{ timetable(from: \\"${req.body.for[1]}\\", to: \\"${req.body.for[2]}\\") { room from to subject teacher isAway isCancelled isDetention color} }`;}
+      else if (req.body.for[0]=="timetable" && req.body.for[1] && req.body.for[2]) {query=`{ timetable(from: \\"${req.body.for[1]}\\", to: \\"${req.body.for[2]}\\") { room from to subject teacher isAway isCancelled isDetention color}}`;}
+      else if (req.body.for[0]=="marks" && req.body.for[1]) {query=`{ marks(period: \\"${req.body.for[1]}\\") { subjects { name averages color marks } averages {student studentClass} } }`;} // params {periods {name from to}}
       else {res.send({"message": "Missing valid 'for' field"});return;}
       contentreq(token, query);
     }

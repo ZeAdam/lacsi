@@ -7,6 +7,16 @@ body {
 }
 .fc-event-main div {
     color: #323;
-    backdrop-filter: brightness(150%);
+    background-blend-mode: 70%;
     font-weight: bolder
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2em
+}
+.heyy {
+    font-size: xx-large;
+    font-weight: bold;
 }
