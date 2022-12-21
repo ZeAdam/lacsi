@@ -94,7 +94,12 @@ router.post('/api/auth', function(req, res, next) {
       let query
       if (req.body.for[0]=="dashboard") {query="{user { name studentClass { name }}}";}
       else if (req.body.for[0]=="timetable" && req.body.for[1] && req.body.for[2]) {query=`{ timetable(from: \\"${req.body.for[1]}\\", to: \\"${req.body.for[2]}\\") { room from to subject teacher isAway isCancelled isDetention color}}`;}
-      else if (req.body.for[0]=="marks" && req.body.for[1]) {query=`{ marks(period: \\"${req.body.for[1]}\\") { subjects { name averages color marks } averages {student studentClass} } }`;} // params {periods {name from to}}
+      else if (req.body.for[0]=="marks" && req.body.for[1]) {
+        if (req.body.for[1] == "current") {
+          query=`{marks{subjects{name color averages{student studentClass}marks{value scale date title coefficient min max}}}}`;}
+        else {
+          query=`{marks(period:"all"){subjects{name color averages{student studentClass}marks{value scale date title coefficient min max}}}}`;} // any unexpected value for period outputs the whole year's marks
+      } // to get periods: params {periods {name from to}}
       else {res.send({"message": "Missing valid 'for' field"});return;}
       contentreq(token, query);
     }
