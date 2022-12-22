@@ -97,9 +97,18 @@ xhr.send(JSON.stringify(body));
 }
 getmarks();
 
-function gethomework() {
-
+function gethomeworks() {
+    const xhr = new window.XMLHttpRequest();
+    const body = {token: getCookie("token"), for:["homeworks", new Date(), new Date(1677081771)]}
+    xhr.open('POST', `/api/content`, true);
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.onload = function(e) {
+        homeworks = JSON.parse(xhr.response);
+        document.getElementById("homeworkcontainer").innerHTML = `${xhr.responseText}`
+    }
+    xhr.send(JSON.stringify(body));
 }
+gethomeworks();
 
 // TODO: optimize this mess, cause im repeating myself too much
 document.addEventListener('DOMContentLoaded', () => {
