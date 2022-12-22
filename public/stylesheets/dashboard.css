@@ -20,3 +20,40 @@ body {
     font-size: xx-large;
     font-weight: bold;
 }
+main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 0px;
+}
+.calendar {
+    grid-area: 1 / 1 / 2 / 2;
+}
+#marks-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #marks-container table, th, td {
+    border: 1px solid #eee;
+  }
+  #marks-container thead {
+    background-color: #555;
+    color: #eee;
+  }
+  #marks-container th {
+    text-align: center;
+    height: 50px;
+  }
+
+  #btns-period {
+    display: flex;
+    align-items: flex-start;
+  }
+.btns-period-select button {
+    margin: auto 10px auto 0;
+}
+.marks-table-container {
+  max-height: 40vh;
+  overflow-y: scroll;
+}

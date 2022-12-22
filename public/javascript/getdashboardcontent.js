@@ -11,16 +11,17 @@ function getdashboardcontent() { // for fetching name, class
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.onload = function(e) {
         // here take place all the mods of the page.. as of right now (it'll be cluttered, sowwy)
-        dat = JSON.parse(xhr.response);
-        document.getElementById("eleve-btn").innerHTML = `${dat.data.user.name} - ${dat.data.user.studentClass.name}`
+        dashboardcontent = JSON.parse(xhr.response);
+        document.getElementById("eleve-btn").innerHTML = `${dashboardcontent.data.user.name} - ${dashboardcontent.data.user.studentClass.name}`
+        periodsArray = dashboardcontent.data.params.periods.map(period => period.name);
     }
     xhr.send(JSON.stringify(body));
 }
 getdashboardcontent();
 
-function getmarks() { //we'll temporarily work with the current trimester
+function getmarks(period="current") {
     const xhr = new window.XMLHttpRequest();
-    const body = {token: getCookie("token"), for:["marks", "current"]};
+    const body = {token: getCookie("token"), for:["marks", period]};
     xhr.open('POST', `/api/content`, true);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.onload = function(e) { 
@@ -28,7 +29,7 @@ function getmarks() { //we'll temporarily work with the current trimester
         const subjects = data.data.marks.subjects;
         // Create the table element
         const table = document.getElementById('marks-table');
-
+        table.innerHTML = '';
         // Iterate over the subjects array
         for (const subject of subjects) {
         // Create the thead element
@@ -78,13 +79,60 @@ function getmarks() { //we'll temporarily work with the current trimester
         // Append the thead and tbody elements to the table element
         table.appendChild(thead);
         table.appendChild(tbody);
+        thead.addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.lineHeight!== "0px") {
+                content.style.lineHeight = "0px";
+                content.style.display = "none";
+            } else {
+              content.style.lineHeight = "normal";
+              content.style.display = "";
+            }
+          });
         }
-
-        // Append the table element to the desired location in the DOM
-        document.body.appendChild(table);
-
     }
 xhr.send(JSON.stringify(body));
 
 }
 getmarks();
+
+function gethomework() {
+
+}
+
+// TODO: optimize this mess, cause im repeating myself too much
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById("btn-period-prv").addEventListener("click", () => {
+        let currentPeriod = document.getElementById("btn-period-name").innerHTML;
+        if (currentPeriod === "Période en cours") {
+            getmarks(periodsArray[0]);
+            document.getElementById("btn-period-name").innerHTML = periodsArray[0]
+        }
+        else {
+            let previousPeriod = periodsArray[periodsArray.indexOf(currentPeriod)-1];
+            if (previousPeriod) {
+            getmarks(previousPeriod);
+            document.getElementById("btn-period-name").innerHTML = previousPeriod;
+        } else {getmarks(periodsArray[0]);
+            document.getElementById("btn-period-name").innerHTML = periodsArray[0]}}
+    });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById("btn-period-nxt").addEventListener("click", () => {
+        let currentPeriod = document.getElementById("btn-period-name").innerHTML;
+        if (currentPeriod === "Période en cours") {
+            getmarks(periodsArray[0]);
+            document.getElementById("btn-period-name").innerHTML = periodsArray[0]
+        }
+        else {
+            let nextPeriod = periodsArray[periodsArray.indexOf(currentPeriod)+1];
+            if (nextPeriod) {
+            getmarks(nextPeriod);
+            document.getElementById("btn-period-name").innerHTML = nextPeriod;
+        } else {
+            getmarks(periodsArray[0]);
+            document.getElementById("btn-period-name").innerHTML = periodsArray[0]
+        }}
+    });
+});
