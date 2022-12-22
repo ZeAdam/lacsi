@@ -110,38 +110,24 @@ function gethomeworks() {
 }
 gethomeworks();
 
-// TODO: optimize this mess, cause im repeating myself too much
+
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById("btn-period-prv").addEventListener("click", () => {
-        let currentPeriod = document.getElementById("btn-period-name").innerHTML;
-        if (currentPeriod === "Période en cours") {
-            getmarks(periodsArray[0]);
-            document.getElementById("btn-period-name").innerHTML = periodsArray[0]
-        }
-        else {
-            let previousPeriod = periodsArray[periodsArray.indexOf(currentPeriod)-1];
-            if (previousPeriod) {
-            getmarks(previousPeriod);
-            document.getElementById("btn-period-name").innerHTML = previousPeriod;
-        } else {getmarks(periodsArray[0]);
-            document.getElementById("btn-period-name").innerHTML = periodsArray[0]}}
-    });
-});
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById("btn-period-nxt").addEventListener("click", () => {
-        let currentPeriod = document.getElementById("btn-period-name").innerHTML;
-        if (currentPeriod === "Période en cours") {
-            getmarks(periodsArray[0]);
-            document.getElementById("btn-period-name").innerHTML = periodsArray[0]
-        }
-        else {
-            let nextPeriod = periodsArray[periodsArray.indexOf(currentPeriod)+1];
-            if (nextPeriod) {
-            getmarks(nextPeriod);
-            document.getElementById("btn-period-name").innerHTML = nextPeriod;
-        } else {
-            getmarks(periodsArray[0]);
-            document.getElementById("btn-period-name").innerHTML = periodsArray[0]
-        }}
-    });
+  const btnPrev = document.getElementById("btn-period-prv");
+  const btnNext = document.getElementById("btn-period-nxt");
+  const btnPeriodName = document.getElementById("btn-period-name");
+  btnPrev.addEventListener("click", () => {
+    let currentPeriod = btnPeriodName.innerHTML;
+    let previousPeriodIndex = periodsArray.indexOf(currentPeriod) - 1;
+    let previousPeriod = periodsArray[previousPeriodIndex] || periodsArray[0];
+    getmarks(previousPeriod);
+    btnPeriodName.innerHTML = previousPeriod;
+  });
+
+  btnNext.addEventListener("click", () => {
+    let currentPeriod = btnPeriodName.innerHTML;
+    let nextPeriodIndex = periodsArray.indexOf(currentPeriod) + 1;
+    let nextPeriod = periodsArray[nextPeriodIndex] || periodsArray[0];
+    getmarks(nextPeriod);
+    btnPeriodName.innerHTML = nextPeriod;
+  });
 });
