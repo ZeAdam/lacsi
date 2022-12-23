@@ -99,12 +99,23 @@ getmarks();
 
 function gethomeworks() {
     const xhr = new window.XMLHttpRequest();
-    const body = {token: getCookie("token"), for:["homeworks", new Date(), new Date(1677081771)]}
+    const body = {token: getCookie("token"), for:["homeworks", "2022-12-05", "2022-12-10"]}
     xhr.open('POST', `/api/content`, true);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.onload = function(e) {
-        homeworks = JSON.parse(xhr.response);
-        document.getElementById("homeworkcontainer").innerHTML = `${xhr.responseText}`
+        const homeworks = JSON.parse(xhr.response).data.homeworks;
+        for (const homework of homeworks) {
+          const wrapDiv = document.createElement('div');
+          const subject = document.createElement('div');
+          subject.innerHTML = homework.subject;
+          const description = document.createElement('div');
+          description.innerHTML = homework.htmlDescription;
+          document.getElementById("homeworkcontainer").appendChild(wrapDiv);
+          console.log(description);
+          wrapDiv.appendChild(subject);
+          wrapDiv.appendChild(description);
+        }
+
     }
     xhr.send(JSON.stringify(body));
 }

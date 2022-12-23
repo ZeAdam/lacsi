@@ -23,8 +23,8 @@ function logout() {
         const body = {token: getCookie("token")}
         xhr.open('POST', `/api/logout`, true);
         xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        // xhr.onload = function(e) {}
-        xhr.send(body);
+        xhr.onload = function(e) {}
+        xhr.send(JSON.stringify(body));
     }
     document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
     window.location.href = "/"

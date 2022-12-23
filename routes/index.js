@@ -69,7 +69,7 @@ router.post('/api/auth', function(req, res, next) {
       const request = await fetch(`http://${graphqlserver}/auth/logout`, {
         method: 'POST',
         body: "",
-        headers: {"Content-Type": 'application/json', "connection": 'keep-alive', "token": `${token}`}
+        headers: {"token": `${token}`}
       });
       const data = await request.json();
       res.send(data);
@@ -94,7 +94,7 @@ router.post('/api/auth', function(req, res, next) {
       let query
       if (req.body.for[0]=="dashboard") {query="{user { name studentClass { name }} params {periods {name from to}}}";}
       else if (req.body.for[0]=="timetable" && req.body.for[1] && req.body.for[2]) {query=`{ timetable(from: \\"${req.body.for[1]}\\", to: \\"${req.body.for[2]}\\") { room from to subject teacher isAway isCancelled isDetention color}}`;}
-      else if (req.body.for[0]=="homeworks" && req.body.for[1] && req.body.for[2]) {query=`{ homeworks(from: \\"${req.body.for[1]}\\", to: \\"${req.body.for[2]}\\") { htmlDescription for files{subject name url} }}`;}
+      else if (req.body.for[0]=="homeworks" && req.body.for[1] && req.body.for[2]) {query=`{ homeworks(from: \\"${req.body.for[1]}\\", to: \\"${req.body.for[2]}\\") { htmlDescription for subject }}`;}
       else if (req.body.for[0]=="marks" && req.body.for[1]) {
         if (req.body.for[1] == "current") {
           query=`{marks{subjects{name color averages{student studentClass}marks{value scale date title coefficient min max}}}}`;}
